@@ -9,11 +9,13 @@ import android.webkit.WebViewClient;
 /**
  * Created by johnj on 15/08/2016.
  */
-public class BMWTrackDaysWebViewClient extends WebViewClient {
+public class MyWebViewClient extends WebViewClient {
+
+    private String domain = "bmwtrackdays.com";
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        if(Uri.parse(url).getHost().endsWith("bmwtrackdays.com")) {
+        if(Uri.parse(url).getHost().endsWith(domain)) {
             return false;
         }
 

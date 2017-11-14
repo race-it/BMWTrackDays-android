@@ -1,12 +1,14 @@
 package it.race.bmwtrackdays;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -39,9 +41,9 @@ public class MainActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
 
         // Stop local links and redirects from opening in browser instead of WebView
-        mWebView.setWebViewClient(new BMWTrackDaysWebViewClient());
+        mWebView.setWebViewClient(new MyWebViewClient());
 
-        mWebView.loadUrl("http://bmwtrackdays.com/forum");
+        mWebView.loadUrl(BuildConfig.WEBVIEW_URL);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class MainActivity extends Activity {
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://it.race.bmwtrackdays/http/host/path")
+                Uri.parse("android-app://" + BuildConfig.APPLICATION_ID + "/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -78,7 +80,7 @@ public class MainActivity extends Activity {
                 // Otherwise, set the URL to null.
                 Uri.parse("http://host/path"),
                 // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://it.race.bmwtrackdays/http/host/path")
+                Uri.parse("android-app://" + BuildConfig.APPLICATION_ID + "/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
@@ -91,5 +93,16 @@ public class MainActivity extends Activity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }
